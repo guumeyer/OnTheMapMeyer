@@ -1,0 +1,561 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DB569F70228BD44800513846 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB569F6F228BD44800513846 /* AppDelegate.swift */; };
+		DB569F77228BD44900513846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB569F76228BD44900513846 /* Assets.xcassets */; };
+		DB569F7A228BD44900513846 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB569F78228BD44900513846 /* LaunchScreen.storyboard */; };
+		DB569F85228BD44900513846 /* OnTheMapMeyerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB569F84228BD44900513846 /* OnTheMapMeyerTests.swift */; };
+		DB569FE1228BE6A200513846 /* StudentInformationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB569FE0228BE6A200513846 /* StudentInformationTableViewController.swift */; };
+		DB569FE3228BE7A500513846 /* StudentInformationTableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB569FE2228BE7A500513846 /* StudentInformationTableViewControllerTest.swift */; };
+		DB5EABCB228D564000F64150 /* StudentInformationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCE77B8228D446A00449DF9 /* StudentInformationHelper.swift */; };
+		DB5EABCE228D62D300F64150 /* UITableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5EABCC228D62B700F64150 /* UITableViewHelper.swift */; };
+		DB5EABD2228E7DDA00F64150 /* StudentInformationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5EABD1228E7DDA00F64150 /* StudentInformationAnnotation.swift */; };
+		DB5EABD4228E80C900F64150 /* StudentInformationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5EABD3228E80C900F64150 /* StudentInformationRouter.swift */; };
+		DB5EABD6228E911100F64150 /* StudentInformationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5EABD5228E911100F64150 /* StudentInformationViewControllerDelegate.swift */; };
+		DBCE77A6228D1E6100449DF9 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCE77A5228D1E6100449DF9 /* DateFormatter.swift */; };
+		DBCE77A8228D35AA00449DF9 /* StudentInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCE77A7228D35AA00449DF9 /* StudentInformationCell.swift */; };
+		DBCE77AC228D36FB00449DF9 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCE77AB228D36FB00449DF9 /* StudentInformation.swift */; };
+		DBCE77AE228D382600449DF9 /* StudentInformationMapViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCE77AD228D382600449DF9 /* StudentInformationMapViewControllerTest.swift */; };
+		DBCE77B3228D3BBB00449DF9 /* StudentInformationMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCE77B2228D3BBB00449DF9 /* StudentInformationMapViewController.swift */; };
+		DBCE77B6228D3CE600449DF9 /* StudentInformationMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBCE77B5228D3CE600449DF9 /* StudentInformationMapViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DB569F81228BD44900513846 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB569F64228BD44800513846 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB569F6B228BD44800513846;
+			remoteInfo = OnTheMapMeyer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DB569F6C228BD44800513846 /* OnTheMapMeyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMapMeyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB569F6F228BD44800513846 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DB569F76228BD44900513846 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB569F79228BD44900513846 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DB569F7B228BD44900513846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB569F80228BD44900513846 /* OnTheMapMeyerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapMeyerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB569F84228BD44900513846 /* OnTheMapMeyerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapMeyerTests.swift; sourceTree = "<group>"; };
+		DB569F86228BD44900513846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB569FE0228BE6A200513846 /* StudentInformationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationTableViewController.swift; sourceTree = "<group>"; };
+		DB569FE2228BE7A500513846 /* StudentInformationTableViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationTableViewControllerTest.swift; sourceTree = "<group>"; };
+		DB5EABCC228D62B700F64150 /* UITableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewHelper.swift; sourceTree = "<group>"; };
+		DB5EABD1228E7DDA00F64150 /* StudentInformationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationAnnotation.swift; sourceTree = "<group>"; };
+		DB5EABD3228E80C900F64150 /* StudentInformationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationRouter.swift; sourceTree = "<group>"; };
+		DB5EABD5228E911100F64150 /* StudentInformationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationViewControllerDelegate.swift; sourceTree = "<group>"; };
+		DBCE77A5228D1E6100449DF9 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		DBCE77A7228D35AA00449DF9 /* StudentInformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationCell.swift; sourceTree = "<group>"; };
+		DBCE77AB228D36FB00449DF9 /* StudentInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
+		DBCE77AD228D382600449DF9 /* StudentInformationMapViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationMapViewControllerTest.swift; sourceTree = "<group>"; };
+		DBCE77B2228D3BBB00449DF9 /* StudentInformationMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationMapViewController.swift; sourceTree = "<group>"; };
+		DBCE77B5228D3CE600449DF9 /* StudentInformationMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentInformationMapViewController.xib; sourceTree = "<group>"; };
+		DBCE77B8228D446A00449DF9 /* StudentInformationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationHelper.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB569F69228BD44800513846 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB569F7D228BD44900513846 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DB569F63228BD44800513846 = {
+			isa = PBXGroup;
+			children = (
+				DB569F6E228BD44800513846 /* Sources */,
+				DB569F83228BD44900513846 /* Tests */,
+				DB569F6D228BD44800513846 /* Products */,
+				DBCE77AF228D3B5800449DF9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DB569F6D228BD44800513846 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB569F6C228BD44800513846 /* OnTheMapMeyer.app */,
+				DB569F80228BD44900513846 /* OnTheMapMeyerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB569F6E228BD44800513846 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DBCE77B4228D3CCE00449DF9 /* Views */,
+				DBCE77AA228D36EC00449DF9 /* StudentInformation */,
+				DBCE77A9228D35C100449DF9 /* Controllers */,
+				DBCE77A4228D1E4000449DF9 /* Extensions */,
+				DB569F6F228BD44800513846 /* AppDelegate.swift */,
+				DB569F76228BD44900513846 /* Assets.xcassets */,
+				DB569F78228BD44900513846 /* LaunchScreen.storyboard */,
+				DB569F7B228BD44900513846 /* Info.plist */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		DB569F83228BD44900513846 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DBCE77B7228D443900449DF9 /* Helpers */,
+				DB569F84228BD44900513846 /* OnTheMapMeyerTests.swift */,
+				DB569F86228BD44900513846 /* Info.plist */,
+				DB569FE2228BE7A500513846 /* StudentInformationTableViewControllerTest.swift */,
+				DBCE77AD228D382600449DF9 /* StudentInformationMapViewControllerTest.swift */,
+				DB5EABD3228E80C900F64150 /* StudentInformationRouter.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		DBCE77A4228D1E4000449DF9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DBCE77A5228D1E6100449DF9 /* DateFormatter.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DBCE77A9228D35C100449DF9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DB5EABD1228E7DDA00F64150 /* StudentInformationAnnotation.swift */,
+				DBCE77A7228D35AA00449DF9 /* StudentInformationCell.swift */,
+				DBCE77B2228D3BBB00449DF9 /* StudentInformationMapViewController.swift */,
+				DB569FE0228BE6A200513846 /* StudentInformationTableViewController.swift */,
+				DB5EABD5228E911100F64150 /* StudentInformationViewControllerDelegate.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DBCE77AA228D36EC00449DF9 /* StudentInformation */ = {
+			isa = PBXGroup;
+			children = (
+				DBCE77AB228D36FB00449DF9 /* StudentInformation.swift */,
+			);
+			path = StudentInformation;
+			sourceTree = "<group>";
+		};
+		DBCE77AF228D3B5800449DF9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DBCE77B4228D3CCE00449DF9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DBCE77B5228D3CE600449DF9 /* StudentInformationMapViewController.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DBCE77B7228D443900449DF9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DBCE77B8228D446A00449DF9 /* StudentInformationHelper.swift */,
+				DB5EABCC228D62B700F64150 /* UITableViewHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DB569F6B228BD44800513846 /* OnTheMapMeyer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB569F89228BD44900513846 /* Build configuration list for PBXNativeTarget "OnTheMapMeyer" */;
+			buildPhases = (
+				DB569F68228BD44800513846 /* Sources */,
+				DB569F69228BD44800513846 /* Frameworks */,
+				DB569F6A228BD44800513846 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OnTheMapMeyer;
+			productName = OnTheMapMeyer;
+			productReference = DB569F6C228BD44800513846 /* OnTheMapMeyer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DB569F7F228BD44900513846 /* OnTheMapMeyerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB569F8C228BD44900513846 /* Build configuration list for PBXNativeTarget "OnTheMapMeyerTests" */;
+			buildPhases = (
+				DB569F7C228BD44900513846 /* Sources */,
+				DB569F7D228BD44900513846 /* Frameworks */,
+				DB569F7E228BD44900513846 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB569F82228BD44900513846 /* PBXTargetDependency */,
+			);
+			name = OnTheMapMeyerTests;
+			productName = OnTheMapMeyerTests;
+			productReference = DB569F80228BD44900513846 /* OnTheMapMeyerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DB569F64228BD44800513846 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Gustavo Meyer";
+				TargetAttributes = {
+					DB569F6B228BD44800513846 = {
+						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
+					};
+					DB569F7F228BD44900513846 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = DB569F6B228BD44800513846;
+					};
+				};
+			};
+			buildConfigurationList = DB569F67228BD44800513846 /* Build configuration list for PBXProject "OnTheMapMeyer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DB569F63228BD44800513846;
+			productRefGroup = DB569F6D228BD44800513846 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DB569F6B228BD44800513846 /* OnTheMapMeyer */,
+				DB569F7F228BD44900513846 /* OnTheMapMeyerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DB569F6A228BD44800513846 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBCE77B6228D3CE600449DF9 /* StudentInformationMapViewController.xib in Resources */,
+				DB569F7A228BD44900513846 /* LaunchScreen.storyboard in Resources */,
+				DB569F77228BD44900513846 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB569F7E228BD44900513846 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB569F68228BD44800513846 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBCE77A8228D35AA00449DF9 /* StudentInformationCell.swift in Sources */,
+				DBCE77A6228D1E6100449DF9 /* DateFormatter.swift in Sources */,
+				DB5EABD2228E7DDA00F64150 /* StudentInformationAnnotation.swift in Sources */,
+				DBCE77B3228D3BBB00449DF9 /* StudentInformationMapViewController.swift in Sources */,
+				DB5EABD6228E911100F64150 /* StudentInformationViewControllerDelegate.swift in Sources */,
+				DB569FE1228BE6A200513846 /* StudentInformationTableViewController.swift in Sources */,
+				DBCE77AC228D36FB00449DF9 /* StudentInformation.swift in Sources */,
+				DB569F70228BD44800513846 /* AppDelegate.swift in Sources */,
+				DB5EABD4228E80C900F64150 /* StudentInformationRouter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB569F7C228BD44900513846 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB569FE3228BE7A500513846 /* StudentInformationTableViewControllerTest.swift in Sources */,
+				DBCE77AE228D382600449DF9 /* StudentInformationMapViewControllerTest.swift in Sources */,
+				DB5EABCB228D564000F64150 /* StudentInformationHelper.swift in Sources */,
+				DB569F85228BD44900513846 /* OnTheMapMeyerTests.swift in Sources */,
+				DB5EABCE228D62D300F64150 /* UITableViewHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DB569F82228BD44900513846 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB569F6B228BD44800513846 /* OnTheMapMeyer */;
+			targetProxy = DB569F81228BD44900513846 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DB569F78228BD44900513846 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB569F79228BD44900513846 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DB569F87228BD44900513846 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DB569F88228BD44900513846 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DB569F8A228BD44900513846 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3CU4RS56F4;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyer.OnTheMapMeyer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DB569F8B228BD44900513846 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3CU4RS56F4;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyer.OnTheMapMeyer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DB569F8D228BD44900513846 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyer.OnTheMapMeyerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OnTheMapMeyer.app/OnTheMapMeyer";
+			};
+			name = Debug;
+		};
+		DB569F8E228BD44900513846 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.meyer.OnTheMapMeyerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OnTheMapMeyer.app/OnTheMapMeyer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB569F67228BD44800513846 /* Build configuration list for PBXProject "OnTheMapMeyer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB569F87228BD44900513846 /* Debug */,
+				DB569F88228BD44900513846 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB569F89228BD44900513846 /* Build configuration list for PBXNativeTarget "OnTheMapMeyer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB569F8A228BD44900513846 /* Debug */,
+				DB569F8B228BD44900513846 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB569F8C228BD44900513846 /* Build configuration list for PBXNativeTarget "OnTheMapMeyerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB569F8D228BD44900513846 /* Debug */,
+				DB569F8E228BD44900513846 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DB569F64228BD44800513846 /* Project object */;
+}

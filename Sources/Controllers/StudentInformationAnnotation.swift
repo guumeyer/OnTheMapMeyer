@@ -1,0 +1,28 @@
+//
+//  StudentInformationAnnotation.swift
+//  OnTheMapMeyer
+//
+//  Created by Meyer, Gustavo on 5/16/19.
+//  Copyright © 2019 Gustavo Meyer. All rights reserved.
+//
+
+import UIKit
+import MapKit
+
+final class StudentInformationAnnotation: NSObject, MKAnnotation {
+    let coordinate: CLLocationCoordinate2D
+    let information: StudentInformation
+
+    init(information: StudentInformation) {
+        self.information = information
+        self.coordinate = CLLocationCoordinate2D(latitude: information.latitude, longitude: information.longitude)
+    }
+
+    var title: String? {
+        return information.fullName
+    }
+
+    var subtitle: String? {
+        return information.mediaURL
+    }
+}
