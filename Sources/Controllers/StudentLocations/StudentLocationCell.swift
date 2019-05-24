@@ -1,5 +1,5 @@
 //
-//  StudentInformationCell.swift
+//  StudentLocationCell.swift
 //  OnTheMapMeyer
 //
 //  Created by Meyer, Gustavo on 5/15/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class StudentInformationCell: UITableViewCell {
+final class StudentLocationCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -18,7 +18,7 @@ final class StudentInformationCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(for studentInformation: StudentInformation) -> UITableViewCell {
+    func configure(for studentInformation: StudentLocation) -> UITableViewCell {
         imageView?.image = UIImage(named: studentInformation.pinImageName)
         textLabel?.text = studentInformation.fullName
         detailTextLabel?.text = studentInformation.mediaURL

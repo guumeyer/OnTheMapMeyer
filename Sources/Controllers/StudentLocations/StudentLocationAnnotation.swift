@@ -1,5 +1,5 @@
 //
-//  StudentInformationAnnotation.swift
+//  StudentLocationAnnotation.swift
 //  OnTheMapMeyer
 //
 //  Created by Meyer, Gustavo on 5/16/19.
@@ -9,11 +9,11 @@
 import UIKit
 import MapKit
 
-final class StudentInformationAnnotation: NSObject, MKAnnotation {
+final class StudentLocationAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
-    let information: StudentInformation
+    let information: StudentLocation
 
-    init(information: StudentInformation) {
+    init(information: StudentLocation) {
         self.information = information
         self.coordinate = CLLocationCoordinate2D(latitude: information.latitude, longitude: information.longitude)
     }

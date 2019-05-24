@@ -9,7 +9,7 @@
 import Foundation
 @testable import OnTheMapMeyer
 
-extension StudentInformation {
+extension StudentLocation {
     static func make(objectId: String = "",
                      uniqueKey: String = "",
                      firstName: String = "",
@@ -19,21 +19,21 @@ extension StudentInformation {
                      latitude: Double = 0,
                      longitude: Double = 0,
                      createdAt: Date = Date(),
-                     updatedAt: Date = Date()) -> StudentInformation {
+                     updatedAt: Date = Date()) -> StudentLocation {
         
-        return StudentInformation(objectId: objectId,
-                                  uniqueKey: uniqueKey,
-                                  firstName: firstName,
-                                  lastName: lastName,
-                                  mapString: mapString,
-                                  mediaURL: mediaURL,
-                                  latitude: latitude,
-                                  longitude: longitude,
-                                  createdAt: createdAt,
-                                  updatedAt: updatedAt)
+        return StudentLocation(uniqueKey: uniqueKey,
+                               firstName: firstName,
+                               lastName: lastName,
+                               mapString: mapString,
+                               mediaURL: mediaURL,
+                               latitude: latitude,
+                               longitude: longitude,
+                               objectId: objectId,
+                               createdAt: createdAt,
+                               updatedAt: updatedAt)
     }
     
-    static func makeMock() -> StudentInformation {
+    static func makeMock() -> StudentLocation {
         return make( objectId: "JhOtcRkxsh",
                      uniqueKey: "996618664",
                      firstName: "Jarrod",

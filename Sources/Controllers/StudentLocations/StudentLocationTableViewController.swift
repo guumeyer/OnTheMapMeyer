@@ -1,5 +1,5 @@
 //
-//  StudentInformationTableViewController.swift
+//  StudentLocationTableViewController.swift
 //  OnTheMapMeyer
 //
 //  Created by Meyer, Gustavo on 5/14/19.
@@ -8,17 +8,30 @@
 
 import UIKit
 
-typealias SelectionHandler = (StudentInformation) -> Void
+typealias SelectionHandler = (StudentLocation) -> Void
 typealias AlerViewHandler = (_ viewController: UIViewController, _ title: String?,_ message: String) -> Void
 
-final class StudentInformationTableViewController: UITableViewController, StudentInformationViewControllerDelegate {
+final class StudentLocationTableViewController: UITableViewController, StudentLocationViewControllerDelegate {
+
+
     private let reuseIdentifier = "StudentInformationCell"
 
-    private var informations = [StudentInformation]()
+    let activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.hidesWhenStopped = true
+        activity.isHidden = true
+        activity.style = .whiteLarge
+        activity.color = .gray
+        return activity
+    }()
+
+    private var informations = [StudentLocation]()
     private var selection: SelectionHandler?
     private var alertView: AlerViewHandler?
 
-    convenience init(informations: [StudentInformation], selection: @escaping SelectionHandler, alertView: @escaping AlerViewHandler) {
+    convenience init(informations: [StudentLocation],
+                     selection: @escaping SelectionHandler,
+                     alertView: @escaping AlerViewHandler) {
         self.init()
         self.informations = informations
         self.selection = selection
@@ -27,8 +40,9 @@ final class StudentInformationTableViewController: UITableViewController, Studen
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundView = activityIndicator
+        tableView.register(StudentLocationCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.tableFooterView = UIView()
-        tableView.register(StudentInformationCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
 
     // MARK: UITableViewDataSource
@@ -37,7 +51,7 @@ final class StudentInformationTableViewController: UITableViewController, Studen
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! StudentInformationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! StudentLocationCell
         return cell.configure(for: informations[indexPath.row])
     }
 
@@ -47,12 +61,21 @@ final class StudentInformationTableViewController: UITableViewController, Studen
     }
 
     // MARK: StudentInformationViewControllerDelegate
-    func update(result: [StudentInformation]) {
+    func updateWillBegin() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+
+    func update(result: [StudentLocation]) {
+        activityIndicator.stopAnimating()
         informations = result
         tableView.reloadData()
     }
 
     func showAlert(title: String?, message: String) {
+        activityIndicator.stopAnimating()
         alertView?(self, title, message)
     }
+
 }
+//SelectionHandler

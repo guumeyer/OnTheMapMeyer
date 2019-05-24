@@ -1,5 +1,5 @@
 //
-//  StudentInformationViewControllerDelegate.swift
+//  StudentLocationViewControllerDelegate.swift
 //  OnTheMapMeyer
 //
 //  Created by Meyer, Gustavo on 5/16/19.
@@ -9,13 +9,17 @@
 import Foundation
 
 /// The student information ViewController delegate.
-protocol StudentInformationViewControllerDelegate {
+protocol StudentLocationViewControllerDelegate {
+
+
+    /// The update process will begin
+    func updateWillBegin()
 
     /// Updates the UI based on the `result`.
     /// This method will be performed when there is some result to be update in the UI.
     ///
     /// - Parameter result: A list of student information
-    func update(result: [StudentInformation])
+    func update(result: [StudentLocation])
 
     /// Shows a alert message
     ///

@@ -10,10 +10,11 @@ import Foundation
 
 extension DateFormatter {
 
-    func iso8601() {
+    func iso8601() -> DateFormatter {
        calendar = Calendar(identifier: .iso8601)
        locale = Locale(identifier: "en_US_POSIX")
        timeZone = TimeZone(secondsFromGMT: 0)
        dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+        return self
     }
 }

@@ -1,5 +1,5 @@
 //
-//  StudentInformationMapViewController.swift
+//  StudentLocationMapViewController.swift
 //  OnTheMapMeyer
 //
 //  Created by Meyer, Gustavo on 5/15/19.
@@ -9,16 +9,26 @@
 import UIKit
 import MapKit
 
-final class StudentInformationMapViewController: UIViewController, MKMapViewDelegate, StudentInformationViewControllerDelegate {
+final class StudentLocationMapViewController: UIViewController, MKMapViewDelegate, StudentLocationViewControllerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     private let reuseIdentifier = "marker"
+    let activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.hidesWhenStopped = true
+        activity.isHidden = true
+        activity.style = .whiteLarge
+        activity.color = .gray
+        return activity
+    }()
 
-    private var informations = [StudentInformation]()
+    private var informations = [StudentLocation]()
     private var selection: SelectionHandler?
     private var alertView: AlerViewHandler?
 
-    convenience init(informations: [StudentInformation], selection: @escaping SelectionHandler, alertView: @escaping AlerViewHandler) {
+    convenience init(informations: [StudentLocation],
+                     selection: @escaping SelectionHandler,
+                     alertView: @escaping AlerViewHandler) {
         self.init()
         self.informations = informations
         self.selection = selection
@@ -27,36 +37,43 @@ final class StudentInformationMapViewController: UIViewController, MKMapViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupActivityIndicator()
         populateMapView()
     }
 
     // MARK: MKMapViewDelegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? StudentInformationAnnotation else { return nil }
+        guard let annotation = annotation as? StudentLocationAnnotation else { return nil }
         return dequeueReusableAnnotationView(mapView, annotation)
     }
 
     func mapView(_ mapView: MKMapView,
                  annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl){
-        if let annotation = view.annotation as? StudentInformationAnnotation {
+        if let annotation = view.annotation as? StudentLocationAnnotation {
             selection?(annotation.information)
         }
     }
 
     // MARK: StudentInformationViewControllerDelegate
-    func update(result: [StudentInformation]) {
+    func updateWillBegin() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+
+    func update(result: [StudentLocation]) {
+        activityIndicator.stopAnimating()
         informations = result
         mapView.removeAnnotations(mapView.annotations)
         populateMapView()
     }
 
     func showAlert(title: String?, message: String) {
+        activityIndicator.stopAnimating()
         alertView?(self, title, message)
     }
 
-    private func dequeueReusableAnnotationView(_ mapView: MKMapView, _ annotation: StudentInformationAnnotation) -> MKMarkerAnnotationView {
+    private func dequeueReusableAnnotationView(_ mapView: MKMapView, _ annotation: StudentLocationAnnotation) -> MKMarkerAnnotationView {
         var view: MKMarkerAnnotationView
         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
             as? MKMarkerAnnotationView {
@@ -71,8 +88,16 @@ final class StudentInformationMapViewController: UIViewController, MKMapViewDele
         return view
     }
 
-    fileprivate func populateMapView() {
-        informations.forEach{ mapView.addAnnotation(StudentInformationAnnotation(information: $0)) }
+    private func populateMapView() {
+        informations.forEach{ mapView.addAnnotation(StudentLocationAnnotation(information: $0)) }
+    }
+
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        view.bringSubviewToFront(activityIndicator)
     }
 
 }
