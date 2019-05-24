@@ -12,10 +12,9 @@ import UIKit
 final class StudentLocationManager {
 
     static let shared = StudentLocationManager()
-
-    private init() {}
-
     private let udacityAPI = UdacityApiLoader(client: URLSessionHTTPClient())
+    
+    private init() {}
 
     /// Makes a new instance of StudentLocationNavigationController
     ///
