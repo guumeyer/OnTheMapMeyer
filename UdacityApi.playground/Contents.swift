@@ -109,3 +109,26 @@ extension DateFormatter {
 //    print(String(data: data!, encoding: .utf8)!)
 //}
 //task.resume()
+
+
+var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
+request.httpMethod = "DELETE"
+var xsrfCookie: HTTPCookie? = nil
+let sharedCookieStorage = HTTPCookieStorage.shared
+for cookie in sharedCookieStorage.cookies! {
+    if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+}
+if let xsrfCookie = xsrfCookie {
+    request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+}
+let session = URLSession.shared
+let task = session.dataTask(with: request) { data, response, error in
+    if error != nil { // Handle error…
+        return
+    }
+    guard var data = data else { return }
+    data.removeSubrange(0...4)
+
+    print(String(data: data, encoding: .utf8)!)
+}
+task.resume()

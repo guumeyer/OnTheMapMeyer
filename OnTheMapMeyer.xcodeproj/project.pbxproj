@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB22D6A422983D2B0053B648 /* AddLocationMediaURLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB22D6A322983D2B0053B648 /* AddLocationMediaURLViewController.xib */; };
+		DB22D6A622983E100053B648 /* ConfirmNewLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB22D6A522983E100053B648 /* ConfirmNewLocationViewController.xib */; };
 		DB569F70228BD44800513846 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB569F6F228BD44800513846 /* AppDelegate.swift */; };
 		DB569F77228BD44900513846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB569F76228BD44900513846 /* Assets.xcassets */; };
 		DB569F7A228BD44900513846 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB569F78228BD44900513846 /* LaunchScreen.storyboard */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB22D6A322983D2B0053B648 /* AddLocationMediaURLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddLocationMediaURLViewController.xib; sourceTree = "<group>"; };
+		DB22D6A522983E100053B648 /* ConfirmNewLocationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmNewLocationViewController.xib; sourceTree = "<group>"; };
 		DB569F6C228BD44800513846 /* OnTheMapMeyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMapMeyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB569F6F228BD44800513846 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB569F76228BD44900513846 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,6 +103,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB22D6A222983C6F0053B648 /* AddNewLocation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddNewLocation;
+			sourceTree = "<group>";
+		};
 		DB569F63228BD44800513846 = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +210,7 @@
 		DBCE77A9228D35C100449DF9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DB22D6A222983C6F0053B648 /* AddNewLocation */,
 				DBA68E5D2296E3C5001D8CC2 /* Authenticatication */,
 				DBA68E5C2296E3AF001D8CC2 /* StudentLocations */,
 				DB925B272297C78300A8CE5D /* StudentLocationManager.swift */,
@@ -228,6 +240,8 @@
 			children = (
 				DBCE77B5228D3CE600449DF9 /* StudentLocationMapViewController.xib */,
 				DBA68E5A2296DE9E001D8CC2 /* AuthenticationViewController.xib */,
+				DB22D6A322983D2B0053B648 /* AddLocationMediaURLViewController.xib */,
+				DB22D6A522983E100053B648 /* ConfirmNewLocationViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -330,7 +344,9 @@
 				DBCE77B6228D3CE600449DF9 /* StudentLocationMapViewController.xib in Resources */,
 				DB569F7A228BD44900513846 /* LaunchScreen.storyboard in Resources */,
 				DB569F77228BD44900513846 /* Assets.xcassets in Resources */,
+				DB22D6A622983E100053B648 /* ConfirmNewLocationViewController.xib in Resources */,
 				DBA68E5B2296DE9E001D8CC2 /* AuthenticationViewController.xib in Resources */,
+				DB22D6A422983D2B0053B648 /* AddLocationMediaURLViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

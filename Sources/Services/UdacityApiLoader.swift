@@ -70,6 +70,31 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         }
     }
 
+    // MAKR: Logoff
+    func logoff(completion: @escaping (LogoffResult) -> Void) {
+        client.makeRequest(from: makeLogoffURLRequest()) { [weak self] result in
+            guard self != nil else { return }
+
+
+            switch result {
+            case let .success(data, response):
+                completion(UdacityApiLoader.mapLogoffResponse(UdacityApiLoader.clean(data), from: response))
+            case .failure:
+                completion(.failure(Error.connectivity))
+            }
+        }
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request) { data, response, error in
+//            if error != nil { // Handle error…
+//                return
+//            }
+//            let range = Range(5..<data!.count)
+//            let newData = data?.subdata(in: range) /* subset response data! */
+//            print(String(data: newData!, encoding: .utf8)!)
+//        }
+//        task.resume()
+    }
+
     private static func clean(_ data: Data) -> Data {
         var data = data
         data.removeSubrange(0...4) //subset response data!
@@ -88,11 +113,25 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
     }
 
     private func makeAuthorizeURLRequest(for credential: UserCredential)  -> URLRequest{
-        var request =   URLRequest(url: URL(string: "\(serverUrl)/session")!)
+        var request = URLRequest(url: URL(string: "\(serverUrl)/session")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = buildUdacityCredentialData(by: credential)
+        return request
+    }
+
+    private func makeLogoffURLRequest() -> URLRequest {
+        var request = URLRequest(url: URL(string: "\(serverUrl)/session")!)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
         return request
     }
 
@@ -101,6 +140,20 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         let decoder = JSONDecoder()
         if response.statusCode == 200, let userSession = try? decoder.decode(UserSession.self, from: data) {
             return .success(userSession)
+        }
+        do {
+            let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)
+            return .failure(Error.httpError(serverErrorResponse))
+        } catch {
+            return .failure(Error.invalidData)
+        }
+    }
+
+    private static func mapLogoffResponse(_ data: Data,
+                                          from response: HTTPURLResponse) -> LogoffResult{
+        let decoder = JSONDecoder()
+        if response.statusCode == 200, let _ = try? decoder.decode(Session.self, from: data) {
+            return .success
         }
         do {
             let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)

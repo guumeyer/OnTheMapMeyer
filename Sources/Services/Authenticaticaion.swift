@@ -14,11 +14,14 @@ enum AuthenticaticaionResult {
     case failure(Error)
 }
 
+enum LogoffResult {
+    case success
+    case failure(Error)
+}
+
 // MARK: - Authenticaticaion
 /// Authentication protocol
 protocol Authenticaticaion {
-
-//    associatedtype ResultType
 
     /// Authorizes the user credentials
     ///
@@ -26,4 +29,9 @@ protocol Authenticaticaion {
     ///   - credential: the user credentials
     ///   - completion: the completion will retrive `AuthenticaticaionResult` based on the server response.
     func authorize(credential: UserCredential, completion: @escaping (AuthenticaticaionResult) -> Void)
+
+    /// Logoff the user session
+    ///
+    /// - Parameter completion: the completion will retrive `LogoffResult` based on the server response.
+    func logoff(completion: @escaping (LogoffResult) -> Void)
 }
