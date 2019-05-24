@@ -5,7 +5,9 @@ The iOS App to display the student mock location
 
 ## Features:
 Login
+
 Display the student locations in a Map View
+
 Display the student locations in a list
 
 
