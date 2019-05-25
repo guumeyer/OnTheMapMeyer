@@ -32,14 +32,17 @@ class StudentLocationNavigationControllerTest: XCTestCase {
     }
 
     // HELPER
-    private func makeSUT(loader: StudentLocationLoader = StudentLocationLoaderStub(),
+    private func makeSUT(authentication: Authenticaticaion = AuthenticationStub(),
+                         loader: StudentLocationLoader = StudentLocationLoaderStub(),
                          selection: @escaping SelectionHandler = {_ in },
                          alertView: @escaping AlerViewHandler = {_,_,_  in },
                          informations: [StudentLocation] = []) -> StudentLocationNavigationController {
-        let sut = StudentLocationNavigationController(loader: StudentLocationLoaderStub(),
-                                                   selection: selection,
-                                                   alertView: alertView,
-                                                   informations: informations)
+
+        let sut = StudentLocationNavigationController(authentication: authentication,
+                                                      loader: loader,
+                                                      selection: selection,
+                                                      alertView: alertView,
+                                                      informations: informations)
         _ = sut.view
 
         return sut
@@ -49,5 +52,33 @@ class StudentLocationNavigationControllerTest: XCTestCase {
 class StudentLocationLoaderStub: StudentLocationLoader {
     func load(completionHandler: @escaping (LoadStudentLocationResult<[StudentLocation]>) -> Void) {
         completionHandler(.success([]))
+    }
+}
+
+class AuthenticationStub: Authenticaticaion {
+
+    var authorizeResult: AuthenticaticaionResult?
+    var logoffResult: LogoffResult?
+
+    init(authorizeResult: AuthenticaticaionResult? = nil,  logoffResult: LogoffResult? = nil ) {
+        self.authorizeResult = authorizeResult
+        self.logoffResult = logoffResult
+    }
+
+    func authorize(credential: UserCredential, completion: @escaping (AuthenticaticaionResult) -> Void) {
+
+        guard let authorizeResult = authorizeResult  else {
+            return completion(.failure(UdacityApiLoader.Error.connectivity))
+        }
+
+        completion(authorizeResult)
+    }
+
+    func logoff(completion: @escaping (LogoffResult) -> Void) {
+        guard let logoffResult = logoffResult  else {
+            return completion(.failure(UdacityApiLoader.Error.connectivity))
+        }
+
+        completion(logoffResult)
     }
 }
