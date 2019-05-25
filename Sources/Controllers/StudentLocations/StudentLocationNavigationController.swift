@@ -11,10 +11,13 @@ import UIKit
 
 final class StudentLocationNavigationController: UINavigationController {
 
-    var studentLocationLoader: StudentLocationLoader!
-    var studentLocationViewControllerDelegates = [StudentLocationViewControllerDelegate]()
+    private var authentication: Authenticaticaion!
+    private var alertView: AlerViewHandler?
+    private var studentLocationLoader: StudentLocationLoader!
+    private var studentLocationViewControllerDelegates = [StudentLocationViewControllerDelegate]()
 
-    convenience init(loader: StudentLocationLoader,
+    convenience init(authentication: Authenticaticaion,
+                     loader: StudentLocationLoader,
                      selection: @escaping SelectionHandler,
                      alertView: @escaping AlerViewHandler,
                      informations: [StudentLocation] = []) {
@@ -39,10 +42,12 @@ final class StudentLocationNavigationController: UINavigationController {
 
         self.init(rootViewController: tabBarController)
 
+        self.authentication = authentication
+        self.alertView = alertView
         self.studentLocationLoader = loader
 
-        studentLocationViewControllerDelegates.append(tableViewController)
         studentLocationViewControllerDelegates.append(mapViewController)
+        studentLocationViewControllerDelegates.append(tableViewController)
 
         setupLeftNabItem(navigationItem: tabBarController.navigationItem)
         setupRightNabItems(navigationItem: tabBarController.navigationItem)
@@ -54,7 +59,19 @@ final class StudentLocationNavigationController: UINavigationController {
     }
 
     @objc private func logoutAction(sender: UIBarButtonItem) {
-       dismiss(animated: true, completion: nil)
+        authentication.logoff { [weak self] result in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    strongSelf.alertView?(strongSelf, nil, error.localizedDescription)
+
+                case .success:
+                    strongSelf.dismiss(animated: true, completion: nil)
+
+                }
+            }
+        }
     }
 
     @objc private func refreshAction(sender: UIBarButtonItem) {

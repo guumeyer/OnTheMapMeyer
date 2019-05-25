@@ -64,7 +64,9 @@ final class StudentLocationMapViewController: UIViewController, MKMapViewDelegat
     func update(result: [StudentLocation]) {
         activityIndicator.stopAnimating()
         informations = result
-        mapView.removeAnnotations(mapView.annotations)
+        if mapView != nil {
+            mapView.removeAnnotations(mapView.annotations)
+        }
         populateMapView()
     }
 

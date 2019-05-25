@@ -19,8 +19,9 @@ final class StudentLocationManager {
     /// Makes a new instance of StudentLocationNavigationController
     ///
     /// - Returns: an instance of StudentLocationNavigationController
-    func makeStudentLocationNavigationController() -> StudentLocationNavigationController {
+    func makeStudentLocationNavigationController(_ authentication: Authenticaticaion) -> StudentLocationNavigationController {
         let navigationController = StudentLocationNavigationController(
+            authentication: authentication,
             loader: udacityAPI,
             selection: handleSelection(),
             alertView: handleDisplayAlertView())
@@ -34,9 +35,9 @@ final class StudentLocationManager {
         let authenticationViewController = AuthenticationViewController(
             udacityService: udacityAPI,
             openURLHandler: handleOpenURL(),
-            alertView: handleDisplayAlertView()) { [weak self] viewController, userSession  in
+            alertView: handleDisplayAlertView()) { [weak self] viewController, authenticaticaion, userSession  in
                 guard let strongSelf = self else { return }
-                viewController.present(strongSelf.makeStudentLocationNavigationController(),
+                viewController.present(strongSelf.makeStudentLocationNavigationController(authenticaticaion),
                                        animated: true,
                                        completion: nil)
         }

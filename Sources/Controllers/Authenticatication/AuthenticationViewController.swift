@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias UserSessionResult = (UIViewController, UserSession) -> Void
+typealias UserSessionResult = (UIViewController, Authenticaticaion, UserSession) -> Void
 
 final class AuthenticationViewController: UIViewController {
 
@@ -18,7 +18,7 @@ final class AuthenticationViewController: UIViewController {
     @IBOutlet weak var singUpTextField: UILabel!
     @IBOutlet weak var activeIndicator: UIActivityIndicatorView!
 
-    private var udacityService: Authenticaticaion?
+    private var udacityService: Authenticaticaion!
     private var openURLHandler: ((String) -> Void)?
     private var alertView: AlerViewHandler?
     private var userSessionHandler: UserSessionResult?
@@ -79,7 +79,7 @@ final class AuthenticationViewController: UIViewController {
         case .failure(let error):
             alertView?(self, nil, error.localizedDescription)
         case .success(let userSession):
-            userSessionHandler?(self, userSession)
+            userSessionHandler?(self, udacityService, userSession)
         }
     }
 

@@ -43,7 +43,7 @@
                         <constraint firstAttribute="width" constant="300" id="WQt-Kt-Z1V"/>
                         <constraint firstAttribute="height" constant="44" id="kOG-Mm-iPa"/>
                     </constraints>
-                    <state key="normal" title="Next">
+                    <state key="normal" title="Submit">
                         <color key="titleColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>

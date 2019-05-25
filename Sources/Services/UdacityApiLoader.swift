@@ -74,8 +74,6 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
     func logoff(completion: @escaping (LogoffResult) -> Void) {
         client.makeRequest(from: makeLogoffURLRequest()) { [weak self] result in
             guard self != nil else { return }
-
-
             switch result {
             case let .success(data, response):
                 completion(UdacityApiLoader.mapLogoffResponse(UdacityApiLoader.clean(data), from: response))
@@ -152,7 +150,9 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
     private static func mapLogoffResponse(_ data: Data,
                                           from response: HTTPURLResponse) -> LogoffResult{
         let decoder = JSONDecoder()
-        if response.statusCode == 200, let _ = try? decoder.decode(Session.self, from: data) {
+        decoder.dateDecodingStrategy = .formatted(DateFormatter().iso8601())
+        if response.statusCode == 200,
+            let _ = try? decoder.decode([String:Session].self, from: data) {
             return .success
         }
         do {
