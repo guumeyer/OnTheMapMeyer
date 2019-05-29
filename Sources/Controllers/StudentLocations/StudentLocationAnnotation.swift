@@ -11,9 +11,9 @@ import MapKit
 
 final class StudentLocationAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
-    let information: StudentLocation
+    let information: StudentInformation
 
-    init(information: StudentLocation) {
+    init(information: StudentInformation) {
         self.information = information
         self.coordinate = CLLocationCoordinate2D(latitude: information.latitude, longitude: information.longitude)
     }

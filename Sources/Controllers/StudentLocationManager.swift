@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import MapKit
 
 /// StudentLocationManager is a singleton instance
 final class StudentLocationManager {
 
     static let shared = StudentLocationManager()
     private let udacityAPI = UdacityApiLoader(client: URLSessionHTTPClient())
-    
+    private var userSession: UserSession? = nil
+    var locations = [StudentInformation]()
+
     private init() {}
 
     /// Makes a new instance of StudentLocationNavigationController
@@ -37,11 +40,26 @@ final class StudentLocationManager {
             openURLHandler: handleOpenURL(),
             alertView: handleDisplayAlertView()) { [weak self] viewController, authenticaticaion, userSession  in
                 guard let strongSelf = self else { return }
+
+                strongSelf.userSession = userSession
+
                 viewController.present(strongSelf.makeStudentLocationNavigationController(authenticaticaion),
                                        animated: true,
                                        completion: nil)
         }
+
         return authenticationViewController
+    }
+
+    func makeInformationPostingView() -> UINavigationController {
+        let viewController = InformationPostingViewController(alertView: handleDisplayAlertView())
+        return UINavigationController(rootViewController: viewController)
+    }
+
+    func makeFinishInformationPostingViewController(coordinate: CLLocationCoordinate2D,
+                                                    location: String,
+                                                    mediaURL: String) -> FinishInformationPostingViewController {
+        return FinishInformationPostingViewController(coordinate: coordinate, location: location, mediaURL: mediaURL)
     }
 
     // MARK: - Helpers methods
@@ -71,4 +89,8 @@ final class StudentLocationManager {
         }
     }
 
+    func logff() {
+        userSession = nil
+        locations = []
+    }
 }

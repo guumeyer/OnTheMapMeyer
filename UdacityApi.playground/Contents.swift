@@ -111,24 +111,69 @@ extension DateFormatter {
 //task.resume()
 
 
-var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
-request.httpMethod = "DELETE"
-var xsrfCookie: HTTPCookie? = nil
-let sharedCookieStorage = HTTPCookieStorage.shared
-for cookie in sharedCookieStorage.cookies! {
-    if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
-}
-if let xsrfCookie = xsrfCookie {
-    request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
-}
+//var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
+//request.httpMethod = "DELETE"
+//var xsrfCookie: HTTPCookie? = nil
+//let sharedCookieStorage = HTTPCookieStorage.shared
+//for cookie in sharedCookieStorage.cookies! {
+//    if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+//}
+//if let xsrfCookie = xsrfCookie {
+//    request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+//}
+//let session = URLSession.shared
+//let task = session.dataTask(with: request) { data, response, error in
+//    if error != nil { // Handle error…
+//        return
+//    }
+//    guard var data = data else { return }
+//    data.removeSubrange(0...4)
+//
+//    print(String(data: data, encoding: .utf8)!)
+//}
+//task.resume()
+
+
+//▿ UserSession
+//    ▿ account : Account
+//- registered : true
+//- key : "88879048274"
+//▿ session : Session
+//- id : "2986122225Sdc437a56bcc4bd21b76dc81a9d9892b4"
+//- expiration : "2019-05-28T15:38:02.689225Z"
+
+//▿ UserSession
+//    ▿ account : Account
+//- registered : true
+//- key : "492212250070"
+//▿ session : Session
+//- id : "0199840787S4b25692557c41f3001045701167b9f25"
+//- expiration : "2019-05-28T18:08:14.218465Z"
+
+//▿ UserSession
+//    ▿ account : Account
+//- registered : true
+//- key : "26324896980"
+//▿ session : Session
+//- id : "7393111089Sfeee5854c198c183e8d104e7d21dd4b8"
+//- expiration : "2019-05-30T04:08:10.545011Z"
+
+
+
+var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/users/3903878747")!)
+//request.addValue("7393111089Sfeee5854c198c183e8d104e7d21dd4b8", forHTTPHeaderField: "session")
 let session = URLSession.shared
 let task = session.dataTask(with: request) { data, response, error in
-    if error != nil { // Handle error…
+    if error != nil { // Handle error...
         return
     }
     guard var data = data else { return }
+
     data.removeSubrange(0...4)
 
     print(String(data: data, encoding: .utf8)!)
 }
 task.resume()
+
+//
+//{"user":{"bio":null,"_registered":true,"linkedin_url":null,"_image":null,"guard":{"allowed_behaviors":["register","view-public","view-short"]},"location":null,"key":"88879048274","timezone":null,"_image_url":null,"nickname":"","website_url":null,"occupation":null}}

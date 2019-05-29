@@ -1,5 +1,5 @@
 //
-//  StudentLocation.swift
+//  StudentInformation.swift
 //  OnTheMapMeyer
 //
 //  Created by Meyer, Gustavo on 5/15/19.
@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - StudentLocation
-struct StudentLocation: Decodable, StudentLocationCreatable, StudentLocationUpdatable {
+struct StudentInformation: Codable{
     let pinImageName = "icon_pin"
     let uniqueKey: String
     let firstName: String
@@ -19,21 +19,17 @@ struct StudentLocation: Decodable, StudentLocationCreatable, StudentLocationUpda
     let latitude: Double
     let longitude: Double
     
-    var objectId: String
-    var createdAt: Date
-    var updatedAt: Date
+//    var objectId: String
+//    var createdAt: Date
+//    var updatedAt: Date
     var fullName: String {
         return "\(firstName) \(lastName)"
     }
 }
 
-// MARK: - StudentLocationCreatable
-protocol StudentLocationCreatable: Decodable{
-    var objectId: String { get }
-    var createdAt: Date { get }
-}
-
-// MARK: - StudentLocationUpdatable
-protocol StudentLocationUpdatable: Decodable{
-    var updatedAt: Date { get }
+// MARK: - StudentInformationSavable
+struct StudentInformationSavable: Decodable{
+    var objectId: String?
+    var createdAt: Date?
+    var updatedAt: Date?
 }

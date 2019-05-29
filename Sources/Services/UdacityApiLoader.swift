@@ -9,7 +9,6 @@
 import Foundation
 
 final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
-
     private let serverUrl = "https://onthemap-api.udacity.com/v1"
 
     private let client: HTTPClient
@@ -40,7 +39,7 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         self.client = client
     }
     // MARK: StudentLocationLoader
-    func load(completionHandler: @escaping (LoadStudentLocationResult<[StudentLocation]>) -> Void) {
+    func load(completionHandler: @escaping (LoadStudentLocationResult<[StudentInformation]>) -> Void) {
         let limit = URLQueryItem(name: "limit", value: "100")
         let order = URLQueryItem(name: "order", value: "-updatedAt")
         var baseUrl = URLComponents(string: "\(serverUrl)/StudentLocation")!
@@ -51,6 +50,26 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
             switch result {
             case let .success(data, response):
                 completionHandler(UdacityApiLoader.mapStudentLoacations(data, from: response))
+            case .failure:
+                completionHandler(.failure(Error.studentLocationConnectivity))
+            }
+        }
+    }
+
+    func save(session: UserSession?,
+              location: StudentInformation,
+              completionHandler: @escaping (LoadStudentLocationResult<StudentInformationSavable>) -> Void) {
+
+        guard let request = try?  makeUpdateStudentInformationURLRequest(location: location) else {
+            completionHandler(.failure(Error.invalidData))
+            return
+        }
+
+        client.makeRequest(from: request) { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case let .success(data, response):
+                completionHandler(UdacityApiLoader.mapStudentLoacationSavable(data, from: response))
             case .failure:
                 completionHandler(.failure(Error.studentLocationConnectivity))
             }
@@ -81,17 +100,12 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
                 completion(.failure(Error.connectivity))
             }
         }
-//        let session = URLSession.shared
-//        let task = session.dataTask(with: request) { data, response, error in
-//            if error != nil { // Handle error…
-//                return
-//            }
-//            let range = Range(5..<data!.count)
-//            let newData = data?.subdata(in: range) /* subset response data! */
-//            print(String(data: newData!, encoding: .utf8)!)
-//        }
-//        task.resume()
     }
+
+    func userDetail(_ userDetail: UserSession, completion: @escaping (LogoffResult) -> Void) {
+        // TODO The endppoit is not working, mock the result t
+    }
+
 
     private static func clean(_ data: Data) -> Data {
         var data = data
@@ -117,6 +131,27 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = buildUdacityCredentialData(by: credential)
         return request
+    }
+
+    private func makeUpdateStudentInformationURLRequest(for session: UserSession? = nil,
+                                                        location: StudentInformation) throws  -> URLRequest{
+
+        var baseUser = "\(serverUrl)/StudentLocation"
+        var httpMethod = "POST"
+
+        if let session = session {
+            baseUser = "\(baseUser)/\(session.account.key)"
+            httpMethod = "PUT"
+        }
+
+        let url = URL(string: baseUser)!
+        var request = URLRequest(url: url)
+        request.httpMethod = httpMethod
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONEncoder().encode(location)
+        return request
+
     }
 
     private func makeLogoffURLRequest() -> URLRequest {
@@ -164,13 +199,13 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
     }
 
     private static func mapStudentLoacations(_ data: Data,
-                                             from response: HTTPURLResponse) -> LoadStudentLocationResult<[StudentLocation]> {
+                                             from response: HTTPURLResponse) -> LoadStudentLocationResult<[StudentInformation]> {
 
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter().iso8601())
 
         guard response.statusCode == 200,
-            let studentLocationDic = try? decoder.decode([String: [StudentLocation]].self, from: data),
+            let studentLocationDic = try? decoder.decode([String: [StudentInformation]].self, from: data),
             let studentLocations = studentLocationDic["results"] else  {
                 do {
                     let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)
@@ -181,6 +216,25 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         }
 
         return .success(studentLocations)
+    }
+
+    private static func mapStudentLoacationSavable(_ data: Data,
+                                             from response: HTTPURLResponse) -> LoadStudentLocationResult<StudentInformationSavable> {
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter().iso8601())
+
+        guard (200 ..< 300).contains(response.statusCode),
+            let studentLocation = try? decoder.decode(StudentInformationSavable.self, from: data) else  {
+                do {
+                    let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)
+                    return .failure(Error.httpError(serverErrorResponse))
+                } catch {
+                    return .failure(Error.invalidData)
+                }
+        }
+
+        return .success(studentLocation)
     }
 
     private func makeURLRequest(_ url: URL) -> URLRequest {

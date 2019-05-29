@@ -20,16 +20,12 @@ final class StudentLocationNavigationController: UINavigationController {
                      loader: StudentLocationLoader,
                      selection: @escaping SelectionHandler,
                      alertView: @escaping AlerViewHandler,
-                     informations: [StudentLocation] = []) {
+                     locations: [StudentInformation] = []) {
         // TABLE
-        let tableViewController = StudentLocationTableViewController(informations: informations,
-                                                                        selection: selection,
-                                                                        alertView: alertView)
+        let tableViewController = StudentLocationTableViewController(selection: selection, alertView: alertView)
 
         /// MAP
-        let mapViewController = StudentLocationMapViewController(informations: informations,
-                                                                    selection: selection,
-                                                                    alertView: alertView)
+        let mapViewController = StudentLocationMapViewController(selection: selection, alertView: alertView)
 
         // TabBarController
         let tabBarController = UITabBarController(nibName: nil, bundle: nil)
@@ -65,8 +61,8 @@ final class StudentLocationNavigationController: UINavigationController {
                 switch result {
                 case .failure(let error):
                     strongSelf.alertView?(strongSelf, nil, error.localizedDescription)
-
                 case .success:
+                    StudentLocationManager.shared.logff()
                     strongSelf.dismiss(animated: true, completion: nil)
 
                 }
@@ -79,7 +75,8 @@ final class StudentLocationNavigationController: UINavigationController {
     }
 
     @objc private func addNewPinAction(sender: UIBarButtonItem) {
-
+        let viewController = StudentLocationManager.shared.makeInformationPostingView()
+        show(viewController, sender: self)
     }
 
     private func loadStudentLocations() {
@@ -92,12 +89,12 @@ final class StudentLocationNavigationController: UINavigationController {
         })
     }
 
-    private func loadStudentLocationHandler(_ result: LoadStudentLocationResult<[StudentLocation]>) {
-
+    private func loadStudentLocationHandler(_ result: LoadStudentLocationResult<[StudentInformation]>) {
         DispatchQueue.main.sync {
             switch result {
             case .success( let locations):
-                self.studentLocationViewControllerDelegates.forEach{ $0.update(result: locations) }
+                StudentLocationManager.shared.locations = locations
+                self.studentLocationViewControllerDelegates.forEach{ $0.update() }
             case .failure( let error):
                 self.studentLocationViewControllerDelegates.first?.showAlert(title: nil, message: error.localizedDescription)
             }

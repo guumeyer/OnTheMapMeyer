@@ -19,7 +19,16 @@ enum LoadStudentLocationResult<T> {
 protocol StudentLocationLoader {
     /// Loads the student locations
     ///
-    /// - Parameter completionHandler:  the completion will retrive `LoadStudentLocationResult` based on the server response.
-    func load(completionHandler: @escaping (LoadStudentLocationResult<[StudentLocation]>) -> Void)
-//    func add(_ studentLocation: StudentLocation, completionHandler: @escaping (LoadStudentLocationResult) -> Void)
+    /// - Parameter completionHandler: the completion will retrive `LoadStudentLocationResult` based on the server response.
+    func load(completionHandler: @escaping (LoadStudentLocationResult<[StudentInformation]>) -> Void)
+
+    /// Saves the student information
+    ///
+    /// - Parameters:
+    ///   - session: The `UserSession`.
+    ///   - location: The `StudentInformation`
+    ///   - completionHandler: the completion will retrive `LoadStudentLocationResult` based on the server response.
+    func save(session: UserSession?,
+              location: StudentInformation,
+              completionHandler: @escaping (LoadStudentLocationResult<StudentInformationSavable>) -> Void)
 }

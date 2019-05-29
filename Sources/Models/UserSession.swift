@@ -1,5 +1,5 @@
 //
-//  Session.swift
+//  UserSession.swift
 //  OnTheMapMeyer
 //
 //  Created by Meyer, Gustavo on 5/21/19.

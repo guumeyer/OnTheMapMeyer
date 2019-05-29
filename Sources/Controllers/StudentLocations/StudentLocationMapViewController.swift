@@ -22,15 +22,16 @@ final class StudentLocationMapViewController: UIViewController, MKMapViewDelegat
         return activity
     }()
 
-    private var informations = [StudentLocation]()
+    private var locations: [StudentInformation] {
+        return StudentLocationManager.shared.locations
+    }
+
     private var selection: SelectionHandler?
     private var alertView: AlerViewHandler?
 
-    convenience init(informations: [StudentLocation],
-                     selection: @escaping SelectionHandler,
+    convenience init(selection: @escaping SelectionHandler,
                      alertView: @escaping AlerViewHandler) {
         self.init()
-        self.informations = informations
         self.selection = selection
         self.alertView = alertView
     }
@@ -61,9 +62,8 @@ final class StudentLocationMapViewController: UIViewController, MKMapViewDelegat
         activityIndicator.startAnimating()
     }
 
-    func update(result: [StudentLocation]) {
+    func update() {
         activityIndicator.stopAnimating()
-        informations = result
         if mapView != nil {
             mapView.removeAnnotations(mapView.annotations)
         }
@@ -91,7 +91,7 @@ final class StudentLocationMapViewController: UIViewController, MKMapViewDelegat
     }
 
     private func populateMapView() {
-        informations.forEach{ mapView.addAnnotation(StudentLocationAnnotation(information: $0)) }
+        locations.forEach{ mapView.addAnnotation(StudentLocationAnnotation(information: $0)) }
     }
 
     private func setupActivityIndicator() {

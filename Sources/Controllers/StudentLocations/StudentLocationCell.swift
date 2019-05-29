@@ -18,7 +18,7 @@ final class StudentLocationCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(for studentInformation: StudentLocation) -> UITableViewCell {
+    func configure(for studentInformation: StudentInformation) -> UITableViewCell {
         imageView?.image = UIImage(named: studentInformation.pinImageName)
         textLabel?.text = studentInformation.fullName
         detailTextLabel?.text = studentInformation.mediaURL

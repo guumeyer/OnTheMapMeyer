@@ -36,13 +36,12 @@ class StudentLocationNavigationControllerTest: XCTestCase {
                          loader: StudentLocationLoader = StudentLocationLoaderStub(),
                          selection: @escaping SelectionHandler = {_ in },
                          alertView: @escaping AlerViewHandler = {_,_,_  in },
-                         informations: [StudentLocation] = []) -> StudentLocationNavigationController {
+                         informations: [StudentInformation] = []) -> StudentLocationNavigationController {
 
         let sut = StudentLocationNavigationController(authentication: authentication,
                                                       loader: loader,
                                                       selection: selection,
-                                                      alertView: alertView,
-                                                      informations: informations)
+                                                      alertView: alertView)
         _ = sut.view
 
         return sut
@@ -50,13 +49,16 @@ class StudentLocationNavigationControllerTest: XCTestCase {
 }
 
 class StudentLocationLoaderStub: StudentLocationLoader {
-    func load(completionHandler: @escaping (LoadStudentLocationResult<[StudentLocation]>) -> Void) {
+    func save(session: UserSession?, location: StudentInformation, completionHandler: @escaping (LoadStudentLocationResult<StudentInformationSavable>) -> Void) {
+        completionHandler(.success(StudentInformationSavable(objectId: "", createdAt: Date(), updatedAt: Date()) ))
+    }
+
+    func load(completionHandler: @escaping (LoadStudentLocationResult<[StudentInformation]>) -> Void) {
         completionHandler(.success([]))
     }
 }
 
 class AuthenticationStub: Authenticaticaion {
-
     var authorizeResult: AuthenticaticaionResult?
     var logoffResult: LogoffResult?
 
@@ -80,5 +82,9 @@ class AuthenticationStub: Authenticaticaion {
         }
 
         completion(logoffResult)
+    }
+
+    func userDetail(_ userDetail: UserSession, completion: @escaping (LogoffResult) -> Void) {
+
     }
 }

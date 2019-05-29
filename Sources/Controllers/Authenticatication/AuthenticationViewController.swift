@@ -53,14 +53,11 @@ final class AuthenticationViewController: UIViewController {
                 .password(passwordTextField.text ?? "")
                 .build()
 
-            activeIndicator.isHidden = false
-            activeIndicator.startAnimating()
-            singUpTextField.isHidden = true
+            showActiveIndicator()
             udacityService?.authorize(credential: userCredential) { [weak self] result in
                 guard let strongSelf = self else { return }
                 DispatchQueue.main.async {
-                    strongSelf.activeIndicator.stopAnimating()
-                    strongSelf.singUpTextField.isHidden = false
+                    strongSelf.hideActiveIndicator()
                     strongSelf.authorizeHandler(result)
                 }
             }
@@ -95,7 +92,7 @@ final class AuthenticationViewController: UIViewController {
 
     }
 
-    fileprivate func setupActiveIndicator() {
+    private func setupActiveIndicator() {
         activeIndicator.isHidden = true
         activeIndicator.hidesWhenStopped = true
         activeIndicator.stopAnimating()
@@ -108,5 +105,21 @@ final class AuthenticationViewController: UIViewController {
         attributedText.append(NSAttributedString(string: "Sing Up",
                                                  attributes: [.foregroundColor: UIColor(red: 80/255, green: 176/255, blue: 223/255, alpha: 1)]))
         return attributedText
+    }
+
+    private func showActiveIndicator() {
+        activeIndicator.isHidden = false
+        activeIndicator.startAnimating()
+        singUpTextField.isHidden = true
+        loginButton.isEnabled = false
+        loginButton.alpha = 0.5
+    }
+
+    private func hideActiveIndicator() {
+        activeIndicator.isHidden = true
+        activeIndicator.stopAnimating()
+        singUpTextField.isHidden = false
+        loginButton.isEnabled = true
+        loginButton.alpha = 1
     }
 }

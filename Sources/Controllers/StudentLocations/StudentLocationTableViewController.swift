@@ -8,11 +8,10 @@
 
 import UIKit
 
-typealias SelectionHandler = (StudentLocation) -> Void
+typealias SelectionHandler = (StudentInformation) -> Void
 typealias AlerViewHandler = (_ viewController: UIViewController, _ title: String?,_ message: String) -> Void
 
 final class StudentLocationTableViewController: UITableViewController, StudentLocationViewControllerDelegate {
-
 
     private let reuseIdentifier = "StudentInformationCell"
 
@@ -25,15 +24,16 @@ final class StudentLocationTableViewController: UITableViewController, StudentLo
         return activity
     }()
 
-    private var informations = [StudentLocation]()
+    private var locations: [StudentInformation] {
+        return StudentLocationManager.shared.locations
+    }
+
     private var selection: SelectionHandler?
     private var alertView: AlerViewHandler?
 
-    convenience init(informations: [StudentLocation],
-                     selection: @escaping SelectionHandler,
+    convenience init(selection: @escaping SelectionHandler,
                      alertView: @escaping AlerViewHandler) {
         self.init()
-        self.informations = informations
         self.selection = selection
         self.alertView = alertView
     }
@@ -47,17 +47,17 @@ final class StudentLocationTableViewController: UITableViewController, StudentLo
 
     // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return informations.count
+        return locations.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! StudentLocationCell
-        return cell.configure(for: informations[indexPath.row])
+        return cell.configure(for: locations[indexPath.row])
     }
 
     // MARK: UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selection?(informations[indexPath.row])
+        selection?(locations[indexPath.row])
     }
 
     // MARK: StudentInformationViewControllerDelegate
@@ -66,9 +66,8 @@ final class StudentLocationTableViewController: UITableViewController, StudentLo
         activityIndicator.startAnimating()
     }
 
-    func update(result: [StudentLocation]) {
+    func update() {
         activityIndicator.stopAnimating()
-        informations = result
         tableView.reloadData()
     }
 

@@ -17,9 +17,7 @@ protocol StudentLocationViewControllerDelegate {
 
     /// Updates the UI based on the `result`.
     /// This method will be performed when there is some result to be update in the UI.
-    ///
-    /// - Parameter result: A list of student information
-    func update(result: [StudentLocation])
+    func update()
 
     /// Shows a alert message
     ///
