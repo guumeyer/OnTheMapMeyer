@@ -160,7 +160,7 @@ extension DateFormatter {
 
 
 
-var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/users/3903878747")!)
+var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/users/4945847912Sa82d5ef1009c3445c19c06865b473844")!)
 //request.addValue("7393111089Sfeee5854c198c183e8d104e7d21dd4b8", forHTTPHeaderField: "session")
 let session = URLSession.shared
 let task = session.dataTask(with: request) { data, response, error in
@@ -175,5 +175,3 @@ let task = session.dataTask(with: request) { data, response, error in
 }
 task.resume()
 
-//
-//{"user":{"bio":null,"_registered":true,"linkedin_url":null,"_image":null,"guard":{"allowed_behaviors":["register","view-public","view-short"]},"location":null,"key":"88879048274","timezone":null,"_image_url":null,"nickname":"","website_url":null,"occupation":null}}

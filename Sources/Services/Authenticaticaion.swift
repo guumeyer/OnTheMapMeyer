@@ -19,6 +19,11 @@ enum LogoffResult {
     case failure(Error)
 }
 
+enum UserDetailResult {
+    case success(User)
+    case failure(Error)
+}
+
 //enum AuthenticaticaionResult {
 //    case success(UserSession)
 //    case failure(Error)
@@ -44,6 +49,6 @@ protocol Authenticaticaion {
     /// Logoff the user session
     ///
     /// - Parameter completion: the completion will retrive `LogoffResult` based on the server response.
-    func userDetail(_ userDetail: UserSession,  completion: @escaping (LogoffResult) -> Void)
+    func userDetail(_ userDetail: UserSession,  completion: @escaping (UserDetailResult) -> Void)
     
 }

@@ -17,9 +17,17 @@ final class InformationPostingViewController: UIViewController {
     @IBOutlet weak var locationTextField: UITextField!
 
     private var alertView: AlerViewHandler?
+    private var user: User!
+    private var objectId: String? = nil
 
-    convenience init(alertView: @escaping AlerViewHandler) {
+    private var locations: [StudentInformation] {
+        return StudentLocationManager.shared.locations
+    }
+
+    convenience init(_ user: User? ,
+                     alertView: @escaping AlerViewHandler) {
         self.init()
+        self.user = user
         self.alertView = alertView
     }
 
@@ -37,9 +45,18 @@ final class InformationPostingViewController: UIViewController {
                                                            target: self,
                                                            action: #selector(cancelAction))
 
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
 
+        if let currentLocation = locations.first(where: { $0.uniqueKey ==  user?.key }) {
+            showOverrideStudentiInformationAlert(currentLocation)
+        }
+    }
 
     private func showActiveIndicator() {
         findLocationButton.isEnabled = false
@@ -62,21 +79,23 @@ final class InformationPostingViewController: UIViewController {
             return
         }
 
-        guard let link = linkTextField.text, let mediaURL = URL(string: link) else {
-            alertView?(self ,nil, "Link is invalid")
+        guard let mediaURL = linkTextField.text,
+            containsURLScheme(url: mediaURL, scheme: "HTTP://") || containsURLScheme(url: mediaURL, scheme: "HTTPS://") else {
+                alertView?(self ,nil, "Invalid Link. Include HTTP(S)://")
             return
         }
 
         showActiveIndicator()
 
         getLocation(from: address) { [address, mediaURL] (coordinate) in
-
-            let viewController = StudentLocationManager.shared.makeFinishInformationPostingViewController(coordinate: coordinate,
-                                                                                                          location: address,
-                                                                                                          mediaURL: mediaURL.absoluteString)
+            let viewController = StudentLocationManager.shared.makeFinishInformationPostingViewController(coordinate,
+                                                                                                          address,
+                                                                                                          mediaURL,
+                                                                                                          self.objectId)
             self.show(viewController, sender: self)
         }
     }
+    
 
     @objc private func cancelAction(sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -101,5 +120,27 @@ final class InformationPostingViewController: UIViewController {
         activityIndicator.isHidden = true
         activityIndicator.style = .whiteLarge
         activityIndicator.color = .gray
+    }
+
+    private func containsURLScheme(url: String, scheme: String ) -> Bool {
+        return url.uppercased().contains(scheme.uppercased())
+    }
+
+    private func showOverrideStudentiInformationAlert(_ studentInformation: StudentInformation) {
+        let alert = UIAlertController(title: nil,
+                                      message: "Do you want to change your current location?",
+                                      preferredStyle: .alert)
+        alert.accessibilityLabel = title
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Override", style: .default, handler: { _ in
+            self.objectId = studentInformation.objectId
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

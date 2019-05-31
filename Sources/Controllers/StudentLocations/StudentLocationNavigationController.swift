@@ -16,7 +16,8 @@ final class StudentLocationNavigationController: UINavigationController {
     private var studentLocationLoader: StudentLocationLoader!
     private var studentLocationViewControllerDelegates = [StudentLocationViewControllerDelegate]()
 
-    convenience init(authentication: Authenticaticaion,
+    convenience init(user: User,
+                     authentication: Authenticaticaion,
                      loader: StudentLocationLoader,
                      selection: @escaping SelectionHandler,
                      alertView: @escaping AlerViewHandler,
@@ -25,7 +26,9 @@ final class StudentLocationNavigationController: UINavigationController {
         let tableViewController = StudentLocationTableViewController(selection: selection, alertView: alertView)
 
         /// MAP
-        let mapViewController = StudentLocationMapViewController(selection: selection, alertView: alertView)
+        let mapViewController = StudentLocationMapViewController(user: user,
+                                                                 selection: selection,
+                                                                 alertView: alertView)
 
         // TabBarController
         let tabBarController = UITabBarController(nibName: nil, bundle: nil)
@@ -79,7 +82,7 @@ final class StudentLocationNavigationController: UINavigationController {
         show(viewController, sender: self)
     }
 
-    private func loadStudentLocations() {
+    public func loadStudentLocations() {
         updateWillBegin()
          DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.studentLocationLoader.load { [weak self] result in

@@ -101,7 +101,9 @@ class StudentLocationMapViewControllerTest: XCTestCase {
                  selection: @escaping SelectionHandler = { _ in },
                  alertView: @escaping AlerViewHandler = { _ ,_ ,_ in }) -> StudentLocationMapViewController {
         StudentLocationManager.shared.locations = locations
-        let sut = StudentLocationMapViewController(selection: selection, alertView: alertView)
+        let sut = StudentLocationMapViewController(user: User(key: "0", firstName: "Bob", lastName: "O"),
+                                                   selection: selection,
+                                                   alertView: alertView)
 
         _ = sut.view
 

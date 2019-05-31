@@ -25,10 +25,10 @@ protocol StudentLocationLoader {
     /// Saves the student information
     ///
     /// - Parameters:
-    ///   - session: The `UserSession`.
+    ///   - objectId: The objectId to be updated .
     ///   - location: The `StudentInformation`
     ///   - completionHandler: the completion will retrive `LoadStudentLocationResult` based on the server response.
-    func save(session: UserSession?,
+    func save(objectId: String?,
               location: StudentInformation,
               completionHandler: @escaping (LoadStudentLocationResult<StudentInformationSavable>) -> Void)
 }

@@ -14,7 +14,9 @@ final class StudentLocationManager {
 
     static let shared = StudentLocationManager()
     private let udacityAPI = UdacityApiLoader(client: URLSessionHTTPClient())
-    private var userSession: UserSession? = nil
+    private var userSession: UserSession!
+    private var userDetail: User!
+    private weak var mainNavigationController: StudentLocationNavigationController?
     var locations = [StudentInformation]()
 
     private init() {}
@@ -24,10 +26,12 @@ final class StudentLocationManager {
     /// - Returns: an instance of StudentLocationNavigationController
     func makeStudentLocationNavigationController(_ authentication: Authenticaticaion) -> StudentLocationNavigationController {
         let navigationController = StudentLocationNavigationController(
+            user: userDetail,
             authentication: authentication,
             loader: udacityAPI,
             selection: handleSelection(),
             alertView: handleDisplayAlertView())
+        mainNavigationController = navigationController
         return navigationController
     }
 
@@ -38,11 +42,15 @@ final class StudentLocationManager {
         let authenticationViewController = AuthenticationViewController(
             udacityService: udacityAPI,
             openURLHandler: handleOpenURL(),
-            alertView: handleDisplayAlertView()) { [weak self] viewController, authenticaticaion, userSession  in
+            alertView: handleDisplayAlertView()) {
+                [weak self] viewController, authenticaticaion, userSession, userDetail  in
                 guard let strongSelf = self else { return }
 
                 strongSelf.userSession = userSession
-
+                strongSelf.userDetail = userDetail
+                dump(userSession)
+                dump(userDetail)
+                
                 viewController.present(strongSelf.makeStudentLocationNavigationController(authenticaticaion),
                                        animated: true,
                                        completion: nil)
@@ -52,14 +60,29 @@ final class StudentLocationManager {
     }
 
     func makeInformationPostingView() -> UINavigationController {
-        let viewController = InformationPostingViewController(alertView: handleDisplayAlertView())
+        let viewController = InformationPostingViewController(userDetail, alertView: handleDisplayAlertView())
         return UINavigationController(rootViewController: viewController)
     }
 
-    func makeFinishInformationPostingViewController(coordinate: CLLocationCoordinate2D,
-                                                    location: String,
-                                                    mediaURL: String) -> FinishInformationPostingViewController {
-        return FinishInformationPostingViewController(coordinate: coordinate, location: location, mediaURL: mediaURL)
+    func makeFinishInformationPostingViewController(_ coordinate: CLLocationCoordinate2D,
+                                                    _ address: String,
+                                                    _ mediaURL: String,
+                                                    _ objectId: String?) -> FinishInformationPostingViewController {
+
+        let vc = FinishInformationPostingViewController(coordinate: coordinate,
+                                                      address: address,
+                                                      mediaURL: mediaURL,
+                                                      objectId: objectId,
+                                                      user: userDetail,
+                                                      userSession: userSession,
+                                                      studentLocationLoader: udacityAPI,
+                                                      alertView: handleDisplayAlertView())
+        vc.studentInformationSavedHandler = { [weak self]  in
+            guard let strongSelf = self else { return }
+            strongSelf.mainNavigationController?.loadStudentLocations()
+        }
+
+        return vc
     }
 
     // MARK: - Helpers methods
@@ -91,6 +114,8 @@ final class StudentLocationManager {
 
     func logff() {
         userSession = nil
+        userDetail = nil
+        mainNavigationController = nil
         locations = []
     }
 }

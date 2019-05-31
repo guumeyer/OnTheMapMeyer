@@ -19,9 +19,9 @@ struct StudentInformation: Codable{
     let latitude: Double
     let longitude: Double
     
-//    var objectId: String
-//    var createdAt: Date
-//    var updatedAt: Date
+    var objectId: String? = nil
+    var createdAt: Date? = nil
+    var updatedAt: Date? = nil
     var fullName: String {
         return "\(firstName) \(lastName)"
     }

@@ -56,11 +56,11 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         }
     }
 
-    func save(session: UserSession?,
+    func save(objectId: String?,
               location: StudentInformation,
               completionHandler: @escaping (LoadStudentLocationResult<StudentInformationSavable>) -> Void) {
 
-        guard let request = try?  makeUpdateStudentInformationURLRequest(location: location) else {
+        guard let request = try?  makeUpdateStudentInformationURLRequest(for: objectId, location: location) else {
             completionHandler(.failure(Error.invalidData))
             return
         }
@@ -102,26 +102,61 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         }
     }
 
-    func userDetail(_ userDetail: UserSession, completion: @escaping (LogoffResult) -> Void) {
+    func userDetail(_ userDetail: UserSession, completion: @escaping (UserDetailResult) -> Void) {
         // TODO The endppoit is not working, mock the result t
+        client.makeRequest(from: makeUsertDetailURLRequest(userDetail)) { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case let .success(data, response):
+                completion(UdacityApiLoader.mapUserDetailResponse(UdacityApiLoader.clean(data), from: response))
+            case .failure:
+                completion(.failure(Error.connectivity))
+            }
+        }
     }
 
+    private func makeUsertDetailURLRequest(_ userDetail: UserSession) -> URLRequest {
+        return makeURLRequest(URL(string: "\(serverUrl)/users/\(userDetail.account.key)")!)
+    }
+
+    private static func mapUserDetailResponse(_ data: Data,
+                                                from response: HTTPURLResponse) -> UserDetailResult {
+        let decoder = JSONDecoder()
+        //UserDetailResult
+        
+        if response.statusCode == 200,
+            let user = try? decoder.decode(User.self, from: data) {
+            return .success(user)
+        }
+
+        do {
+            let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)
+            return .failure(Error.httpError(serverErrorResponse))
+        } catch {
+            return .failure(Error.invalidData)
+        }
+    }
+
+    private static func mapLogoffResponse(_ data: Data,
+                                          from response: HTTPURLResponse) -> LogoffResult{
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter().iso8601())
+        if response.statusCode == 200,
+            let _ = try? decoder.decode([String: Session].self, from: data) {
+            return .success
+        }
+        do {
+            let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)
+            return .failure(Error.httpError(serverErrorResponse))
+        } catch {
+            return .failure(Error.invalidData)
+        }
+    }
 
     private static func clean(_ data: Data) -> Data {
         var data = data
         data.removeSubrange(0...4) //subset response data!
         return data
-    }
-
-    private func buildUdacityCredentialData(by credential: UserCredential) -> Data {
-        return """
-            {
-            "udacity":{
-            "username": "\(credential.userName)",
-            "password": "\(credential.password)"
-            }
-            }
-            """.data(using: .utf8)!
     }
 
     private func makeAuthorizeURLRequest(for credential: UserCredential)  -> URLRequest{
@@ -133,14 +168,14 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         return request
     }
 
-    private func makeUpdateStudentInformationURLRequest(for session: UserSession? = nil,
+    private func makeUpdateStudentInformationURLRequest(for objectId: String? = nil,
                                                         location: StudentInformation) throws  -> URLRequest{
 
         var baseUser = "\(serverUrl)/StudentLocation"
         var httpMethod = "POST"
 
-        if let session = session {
-            baseUser = "\(baseUser)/\(session.account.key)"
+        if let objectId = objectId {
+            baseUser = "\(baseUser)/\(objectId)"
             httpMethod = "PUT"
         }
 
@@ -173,22 +208,6 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
         let decoder = JSONDecoder()
         if response.statusCode == 200, let userSession = try? decoder.decode(UserSession.self, from: data) {
             return .success(userSession)
-        }
-        do {
-            let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)
-            return .failure(Error.httpError(serverErrorResponse))
-        } catch {
-            return .failure(Error.invalidData)
-        }
-    }
-
-    private static func mapLogoffResponse(_ data: Data,
-                                          from response: HTTPURLResponse) -> LogoffResult{
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter().iso8601())
-        if response.statusCode == 200,
-            let _ = try? decoder.decode([String:Session].self, from: data) {
-            return .success
         }
         do {
             let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)
@@ -250,6 +269,17 @@ final class UdacityApiLoader: StudentLocationLoader, Authenticaticaion {
     public struct ServerErrorResponse: Codable {
         let status: Int
         let error: String
+    }
+
+    private func buildUdacityCredentialData(by credential: UserCredential) -> Data {
+        return """
+            {
+            "udacity":{
+            "username": "\(credential.userName)",
+            "password": "\(credential.password)"
+            }
+            }
+            """.data(using: .utf8)!
     }
 }
 

@@ -24,7 +24,11 @@ extension StudentInformation {
                                mapString: mapString,
                                mediaURL: mediaURL,
                                latitude: latitude,
-                               longitude: longitude)
+                               longitude: longitude,
+                               objectId: nil,
+                               createdAt: nil,
+                               updatedAt: nil
+            )
     }
     
     static func makeMock() -> StudentInformation {

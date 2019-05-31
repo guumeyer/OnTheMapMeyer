@@ -38,7 +38,8 @@ class StudentLocationNavigationControllerTest: XCTestCase {
                          alertView: @escaping AlerViewHandler = {_,_,_  in },
                          informations: [StudentInformation] = []) -> StudentLocationNavigationController {
 
-        let sut = StudentLocationNavigationController(authentication: authentication,
+        let sut = StudentLocationNavigationController(user: User(key: "0", firstName: "Bob", lastName: "O"),
+                                                      authentication: authentication,
                                                       loader: loader,
                                                       selection: selection,
                                                       alertView: alertView)
@@ -49,7 +50,8 @@ class StudentLocationNavigationControllerTest: XCTestCase {
 }
 
 class StudentLocationLoaderStub: StudentLocationLoader {
-    func save(session: UserSession?, location: StudentInformation, completionHandler: @escaping (LoadStudentLocationResult<StudentInformationSavable>) -> Void) {
+
+    func save(objectId: String?, location: StudentInformation, completionHandler: @escaping (LoadStudentLocationResult<StudentInformationSavable>) -> Void) {
         completionHandler(.success(StudentInformationSavable(objectId: "", createdAt: Date(), updatedAt: Date()) ))
     }
 
@@ -59,6 +61,8 @@ class StudentLocationLoaderStub: StudentLocationLoader {
 }
 
 class AuthenticationStub: Authenticaticaion {
+
+
     var authorizeResult: AuthenticaticaionResult?
     var logoffResult: LogoffResult?
 
@@ -84,7 +88,7 @@ class AuthenticationStub: Authenticaticaion {
         completion(logoffResult)
     }
 
-    func userDetail(_ userDetail: UserSession, completion: @escaping (LogoffResult) -> Void) {
+    func userDetail(_ userDetail: UserSession, completion: @escaping (UserDetailResult) -> Void) {
 
     }
 }

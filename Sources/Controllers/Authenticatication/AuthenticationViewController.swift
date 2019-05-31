@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias UserSessionResult = (UIViewController, Authenticaticaion, UserSession) -> Void
+typealias UserSessionResult = (UIViewController, Authenticaticaion, UserSession, User) -> Void
 
 final class AuthenticationViewController: UIViewController {
 
@@ -43,6 +43,9 @@ final class AuthenticationViewController: UIViewController {
 
         setupActiveIndicator()
         setupSingUpLabel()
+
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
 
     // MARK: Actions
@@ -56,10 +59,7 @@ final class AuthenticationViewController: UIViewController {
             showActiveIndicator()
             udacityService?.authorize(credential: userCredential) { [weak self] result in
                 guard let strongSelf = self else { return }
-                DispatchQueue.main.async {
-                    strongSelf.hideActiveIndicator()
-                    strongSelf.authorizeHandler(result)
-                }
+                strongSelf.authorizeHandler(result)
             }
 
         } catch (let error)  {
@@ -68,15 +68,39 @@ final class AuthenticationViewController: UIViewController {
     }
 
     @objc private func singUpAction() {
-        openURLHandler?("https://www.udacity.com/account/auth#!/signup")
+        openURLHandler?("https://auth.udacity.com/sign-up")
     }
 
     public func authorizeHandler(_ result: AuthenticaticaionResult) {
         switch result {
         case .failure(let error):
-            alertView?(self, nil, error.localizedDescription)
+            DispatchQueue.main.async {
+                self.hideActiveIndicator()
+                self.alertView?(self, nil, error.localizedDescription)
+            }
         case .success(let userSession):
-            userSessionHandler?(self, udacityService, userSession)
+            getUserDetail(userSession)
+        }
+    }
+
+    private func getUserDetail(_ userSession: UserSession) {
+
+        udacityService.userDetail(userSession) { [weak self] result in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.async {
+                strongSelf.hideActiveIndicator()
+                strongSelf.userDetailHandler(result, userSession)
+            }
+
+        }
+    }
+
+    private func userDetailHandler(_ result: UserDetailResult, _ userSession: UserSession) {
+        switch result {
+        case .failure(let error):
+            alertView?(self, nil, error.localizedDescription)
+        case .success(let user):
+            userSessionHandler?(self, udacityService, userSession, user)
         }
     }
 
@@ -121,5 +145,9 @@ final class AuthenticationViewController: UIViewController {
         singUpTextField.isHidden = false
         loginButton.isEnabled = true
         loginButton.alpha = 1
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

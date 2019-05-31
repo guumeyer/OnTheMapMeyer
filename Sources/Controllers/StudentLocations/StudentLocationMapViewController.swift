@@ -28,10 +28,13 @@ final class StudentLocationMapViewController: UIViewController, MKMapViewDelegat
 
     private var selection: SelectionHandler?
     private var alertView: AlerViewHandler?
+    private var user: User!
 
-    convenience init(selection: @escaping SelectionHandler,
+    convenience init(user: User,
+                     selection: @escaping SelectionHandler,
                      alertView: @escaping AlerViewHandler) {
         self.init()
+        self.user = user
         self.selection = selection
         self.alertView = alertView
     }
@@ -92,7 +95,19 @@ final class StudentLocationMapViewController: UIViewController, MKMapViewDelegat
 
     private func populateMapView() {
         locations.forEach{ mapView.addAnnotation(StudentLocationAnnotation(information: $0)) }
+
+        if let currentLocation = locations.first(where: { $0.uniqueKey ==  user?.key }) {
+
+            let coordinate = CLLocationCoordinate2D(latitude: currentLocation.latitude,
+                                                    longitude: currentLocation.longitude)
+            
+            var center = coordinate;
+            center.latitude -= self.mapView.region.span.latitudeDelta / 6.0;
+            mapView.setCenter(center, animated: true);
+        }
     }
+
+
 
     private func setupActivityIndicator() {
         view.addSubview(activityIndicator)

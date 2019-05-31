@@ -25,3 +25,15 @@ public struct Session: Decodable {
    public let id, expiration: String
 }
 
+// MARK: - Session
+public struct User: Decodable {
+    let key: String
+    let firstName: String
+    let lastName: String
+
+    enum CodingKeys: String, CodingKey {
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case key
+    }
+}

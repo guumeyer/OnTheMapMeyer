@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FinishInformationPostingViewController" customModule="OnTheMapMeyer" customModuleProvider="target">
             <connections>
+                <outlet property="activeIndicator" destination="Wmt-Tv-bh2" id="FD4-TB-ZkJ"/>
                 <outlet property="finishButton" destination="Kfa-If-iq6" id="R8O-1u-xJi"/>
                 <outlet property="mapView" destination="5My-Y8-jvh" id="XOX-qG-RjB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="V0t-IF-Xfb"/>
@@ -40,11 +41,16 @@
                         <action selector="finishDidTouchAction:" destination="-1" eventType="touchUpInside" id="wB2-7j-5GL"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Wmt-Tv-bh2">
+                    <rect key="frame" x="150" y="230" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Wmt-Tv-bh2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1s5-T2-Pw1"/>
                 <constraint firstItem="Kfa-If-iq6" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-16" id="VR4-O9-YWb"/>
                 <constraint firstItem="Kfa-If-iq6" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="eVK-dP-aaY"/>
+                <constraint firstItem="Wmt-Tv-bh2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="tTQ-Ae-GXR"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
         </view>
