@@ -8,7 +8,7 @@ swift 4.2
 
 The project has 25% test coverage.
 
-#Instalation
+## Instalation
 ```
 git clone https://github.com/guumeyer/OnTheMapMeyer
 cd OnTheMapMeyer
