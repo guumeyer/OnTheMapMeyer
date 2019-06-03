@@ -18,9 +18,3 @@ Display the student locations in a Map View
 Display the student locations in a list
 
 Add a new Student location and external link.
-
-## Demo
-
-
-
-
