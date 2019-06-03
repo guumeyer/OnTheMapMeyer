@@ -2,7 +2,7 @@
 The iOS App to display the student information in MapView and TableView too.
 
 ## Requirements
-xcode 10 + 
+Xcode 10 + 
 
 swift 4.2 
 
