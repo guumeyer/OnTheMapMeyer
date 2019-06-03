@@ -6,9 +6,14 @@ Xcode 10 +
 
 swift 4.2 
 
-Open the OnTheMapMeyer.xcodeproj on the Xcode.
-
 The project has 25% test coverage.
+
+#Instalation
+```
+git clone https://github.com/guumeyer/OnTheMapMeyer
+cd OnTheMapMeyer
+open OnTheMapMeyer.xcodeproj
+```
 
 ## Features:
 Login
